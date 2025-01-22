@@ -1,5 +1,5 @@
 import { products } from '../../data';
-import { useCart } from '../../contexts/CartContext';
+import { useCart } from '../../hooks';
 
 export const ProductGrid = () => {
   const { addToCart } = useCart();

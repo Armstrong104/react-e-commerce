@@ -1,9 +1,10 @@
-import { useCart } from '../../contexts/CartContext';
+import { useCart } from "../../hooks";
+
 
 export const CartSection = () => {
     const { cart } = useCart();
   return (
-    <section className="w-full space-y-3 flex-1 sticky top-0 text-center">
+    <section className="w-full space-y-3 flex-1 text-center">
       <h1 className="text-xl font-bold">Shopping Cart</h1>
       <ul>
         {cart.map((cartItem) => (
