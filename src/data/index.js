@@ -1,5 +1,5 @@
 export const categories = [
-  'Laptop',
+  'Laptops',
   'Gaming',
   'Accessories',
   'Peripherals',

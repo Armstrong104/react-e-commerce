@@ -1,4 +1,5 @@
-import { useCart } from '../../hooks';
+import { categories } from '../../data';
+import { useCart, useFilter } from '../../hooks';
 
 export const CartSection = () => {
   const {
@@ -9,6 +10,7 @@ export const CartSection = () => {
     totalPrice,
     checkOut,
   } = useCart();
+  const { clearFilter } = useFilter();
   return (
     <section className="w-full lg:w-[30%] text-center mx-auto">
       <div className="bg-slate-100 shadow-lg rounded-lg p-4 space-y-3 sticky top-4">
@@ -63,7 +65,10 @@ export const CartSection = () => {
           </div>
         )}
         <button
-          onClick={() => checkOut()}
+          onClick={() => {
+            checkOut()
+            clearFilter(categories)
+          }}
           className="bg-blue-500 hover:bg-blue-400 text-white w-full md:w-1/2 rounded-lg p-2 mx-auto"
         >
           Checkout

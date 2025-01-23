@@ -1,11 +1,14 @@
 import { products } from '../../data';
-import { useCart } from '../../hooks';
+import { useCart, useFilter } from '../../hooks';
 
 export const ProductGrid = () => {
   const { addToCart } = useCart();
+  const { filterProducts } = useFilter();
+  const filteredProducts = filterProducts(products);
+
   return (
     <section className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 my-4 text-center">
-      {products.map((product) => (
+      {filteredProducts.map((product) => (
         <div
           className="flex flex-col space-y-2 font-semibold bg-white lg:max-w-[270px] w-full rounded-lg p-4 shadow-lg transition ease-in-out duration-500 hover:scale-105"
           key={product.id}

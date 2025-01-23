@@ -3,6 +3,7 @@ import Proptypes from 'prop-types';
 
 export const CartContext = createContext();
 
+
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(() => {
     const cartItems = localStorage.getItem('cart');
