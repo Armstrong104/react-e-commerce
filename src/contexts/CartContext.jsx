@@ -1,10 +1,16 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import Proptypes from 'prop-types';
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const cartItems = localStorage.getItem('cart');
+    return cartItems ? JSON.parse(cartItems) : [];
+  });
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -44,6 +50,15 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const checkOut = () => {
+    if (cart.length > 1) {
+      setCart([]);
+      alert('Thank you for shopping with us!');
+    } else {
+      alert('Cart is Empty!!');
+    }
+  };
+
   const totalPrice = cart.reduce(
     (acc, curritem) => acc + curritem.price * curritem.quantity,
     0
@@ -57,6 +72,7 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         decreaseQuantity,
         totalPrice,
+        checkOut,
       }}
     >
       {children}
