@@ -24,23 +24,26 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-      # Step 1: Checkout the repository, install node js, and install node packages
+      # Step 1: Checkout the repository
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build
 
-      # Step 2: Deploy to GitHub Pages
+      # Step 2: Setup pnpm and Node.js
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      # Step 3: Install dependencies and build
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build
+        run: pnpm build
+
+      # Step 4: Deploy to GitHub Pages
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
